@@ -1,0 +1,238 @@
+<mvc:View
+    height="100%"
+    controllerName="project1.controller.View1"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <NavContainer id="wizardNavContainer">
+        <pages>
+            <Page
+                id="wizardContentPage"
+                showHeader="false"
+            >
+                <content>
+                    <Wizard
+                        id="CreateProductWizard"
+                        class="sapUiResponsivePadding--header sapUiResponsivePadding--content"
+                        complete="wizardCompletedHandler"
+                    >
+                        <WizardStep
+                            id="ProductTypeStep"
+                            title="Quiz Conditions"
+                            validated="true"
+                        >
+                            <MessageStrip
+                                class="sapUiSmallMarginBottom sapUiSmallMarginBegin sapUiSmallMarginEnd"
+                                text="Define all the relevant conditions for the quiz"
+                                showIcon="true"
+                            />
+                            <form:SimpleForm
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                            >
+                                <Label
+                                    text="Time"
+                                    required="true"
+                                />
+                                <TimePicker
+                                    id="timePicker"
+                                    change="handleTimeChange"
+                                    width="50%"
+                                />
+                                <Label
+                                    text="Number of questions"
+                                    required="true"
+                                />
+                                <Input
+                                    valueStateText="Enter the number of questions"
+                                    type="Number"
+                                    placeholder="Enter the number of questions"
+                                    width="50%"
+                                />
+                                <Label
+                                    text="Topic"
+                                    required="true"
+                                />
+                                <Input
+                                    valueStateText="Enter the topic"
+                                    type="Text"
+                                    placeholder="Enter the topic"
+                                    width="50%"
+                                />
+                                <Label
+                                    text="Full Marks"
+                                    required="true"
+                                />
+                                <Input
+                                    valueStateText="Enter full marks"
+                                    type="Number"
+                                    placeholder="Enter full marks"
+                                    width="50%"
+                                />
+                                <Label
+                                    text="Pass Marks"
+                                    required="true"
+                                />
+                                <Input
+                                    valueStateText="Enter pass marks"
+                                    type="Text"
+                                    placeholder="Enter pass marks"
+                                    width="50%"
+                                />
+                                <Label
+                                    text="Learning Start Period"
+                                    required="true"
+                                />
+                                <DatePicker
+                                    placeholder="Enter the Learning Start Period"
+                                    width="50%"
+                                    value="{
+                                        'path':'/valueDP1',
+                                        'type':'sap.ui.model.type.Date',
+                                        'formatOptions': {
+                                            'pattern': 'yyyy-MM-dd'
+                                        }
+                                    }"
+                                />
+                                <Label
+                                    text="Learning End Period"
+                                    required="true"
+                                />
+                                <DatePicker
+                                    placeholder="Enter the Learning end period"
+                                    width="50%"
+                                    value="{
+                                        'path':'/valueDP2',
+                                        'type':'sap.ui.model.type.Date',
+                                        'formatOptions': {
+                                            'pattern': 'yyyy-MM-dd'
+                                        }
+                                    }"
+                                />
+                            </form:SimpleForm>
+                        </WizardStep>
+                        <WizardStep
+                            id="ProductInfoStep"
+                            validated="false"
+                            title="Questions and Answers"
+                            activate="additionalInfoValidation"
+                        >
+                            <MessageStrip
+                                class="sapUiSmallMarginBottom sapUiSmallMarginBegin sapUiSmallMarginEnd"
+                                text="Define questions and there respective answers"
+                                showIcon="true"
+                            />
+                            <Button
+                                press="addQuestions"
+                                icon="sap-icon://add"
+                                type="Emphasized"
+                                class="sapUiSmallMarginBegin"
+                            />
+                            <form:SimpleForm
+                                id="SimpleForm1"
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                            >
+                                <Label text="Question 1" />
+                                <Input
+                                    placeholder="Enter question no. 1"
+                                    width="500px"
+                                />
+                                <Button
+                                    id="addAnswerBtn1"
+                                    icon="sap-icon://add"
+                                    type="Accept"
+                                    press="addOptions"
+                                    width="5%"
+                                />
+                            </form:SimpleForm>
+                        </WizardStep>
+                    </Wizard>
+                </content>
+                <footer>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button
+                            text="Cancel"
+                            press="handleWizardCancel"
+                        />
+                    </OverflowToolbar>
+                </footer>
+            </Page>
+            <Page
+                id="wizardReviewPage"
+                showHeader="false"
+            >
+                <content>
+                    <form:SimpleForm
+                        title="1. Product Type"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                    >
+                        <form:content>
+                            <Label text="Type" />
+                            <Text
+                                id="ProductTypeChosen"
+                                text="{/productType}"
+                            />
+                            <Link
+                                press="editStepOne"
+                                text="Edit"
+                            />
+                        </form:content>
+                    </form:SimpleForm>
+
+                    <form:SimpleForm
+                        title="2. Product Information"
+                        editable="false"
+                        layout="ResponsiveGridLayout"
+                    >
+                        <form:content>
+                            <Label text="Name" />
+                            <Text
+                                id="ProductNameChosen"
+                                text="{/productName}"
+                            />
+                            <Label text="Weight" />
+                            <Text
+                                id="ProductWeightChosen"
+                                text="{/productWeight}"
+                            />
+                            <Label text="Manufacturer" />
+                            <Text
+                                id="ProductManufacturerChosen"
+                                text="{/productManufacturer}"
+                            />
+                            <Label text="Description" />
+                            <Text
+                                id="ProductDescriptionChosen"
+                                text="{/productDescription}"
+                            />
+                            <Link
+                                press="editStepTwo"
+                                text="Edit"
+                            />
+                        </form:content>
+                    </form:SimpleForm>
+                </content>
+                <footer>
+                    <Bar>
+                        <contentRight>
+                            <Button
+                                text="Submit"
+                                press="handleWizardSubmit"
+                            />
+                            <Button
+                                text="Cancel"
+                                press="handleWizardCancel"
+                            />
+                        </contentRight>
+                    </Bar>
+                </footer>
+            </Page>
+        </pages>
+    </NavContainer>
+</mvc:View>
